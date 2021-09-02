@@ -81,9 +81,71 @@ def insert(root : TreeNode , value):
 # 3. delete a node and substitute it with the last node.
 
 
+def getDeepestNode(rootNode : TreeNode) :
+    if not rootNode:
+        return
+    customQueue = queue.Queue()
+    customQueue.enqueue(rootNode)
+    while not customQueue.isEmpty():
+        root = customQueue.dequeue().value
+        if root.left is not None:
+            customQueue.enqueue(root.left)
+        if root.right is not None:
+            customQueue.enqueue( root.right)
+    return root
 
 
+def deleteDeepestNode(rootNode, dNode):
+    if not rootNode:
+        return
+    customqueue = queue.Queue()
+    customqueue.enqueue(rootNode)
+    while not customqueue.isEmpty():
+        root = customqueue.dequeue().value
+        if root == dNode:
+            root = None
+            return
+        else:
+            if root.left is not None:
+                if root.left == dNode:
+                    root.left = None
+                    return
+                else:
+                    customqueue.enqueue(root.left)
 
+            if root.right is not None:
+                if root.right == dNode:
+                    root.right = None
+                    return
+                else:
+                    customqueue.enqueue(root.right)
+
+
+def deleteNodeBT(rootNode, node):
+    if not rootNode:
+        return
+    customqueue = queue.Queue()
+    customqueue.enqueue(rootNode)
+    while not customqueue.isEmpty():
+        root = customqueue.dequeue().value
+        if root == node:
+            dNode = getDeepestNode(rootNode)
+            root.data = dNode.data
+            deleteDeepestNode(rootNode, dNode)
+            return
+        else:
+            if root.left is not None:
+                customqueue.enqueue(root.left)
+            if root.right is not None:
+                customqueue.enqueue(root.right)
+    print("node not found")
+
+# delete entire tree
+def deleteTree(rootNode : TreeNode):
+    rootNode.data = None
+    rootNode.left = None
+    rootNode.right = None
+    print('tree has been successfully deleted')
 
 
 # creating a complete binary tree from 1 to 10
@@ -118,5 +180,12 @@ newBT5.left = newBT10
 # levelOrder(newBT1)
 
 insert(newBT1, 11)
+print('-------------------------------')
+levelOrder(newBT1)
+
+dNode = getDeepestNode(newBT1)
+#deleteDeepestNode(newBT1, dNode)
+deleteNodeBT(newBT1, newBT3)
+
 print('-------------------------------')
 levelOrder(newBT1)
