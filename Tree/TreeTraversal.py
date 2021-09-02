@@ -50,7 +50,43 @@ def levelOrder(treeNode: TreeNode):
         if root.right:
             printOrderQueue.enqueue(root.right)
 
+# insert a node to the end of a tree
+def insert(root : TreeNode , value):
+    newNode = TreeNode(value)
+    if not root:
+        root = newNode
+        return
+    else:
+        customQueue= queue.Queue()
+        customQueue.enqueue(root)
+        while not customQueue.isEmpty():
+            root = customQueue.dequeue().value
+            if root.left:
+                customQueue.enqueue(root.left)
+            else:
+                root.left = newNode
+                print("{} value is added to left".format(value))
+                return
+            if root.right:
+                customQueue.enqueue(root.right)
+            else:
+                root.right = newNode
+                print("{} value is added to right".format(value))
+                return
 
+
+# delete a node:
+# 1- get the last node,
+# 2- delete the last node,
+# 3. delete a node and substitute it with the last node.
+
+
+
+
+
+
+
+# creating a complete binary tree from 1 to 10
 newBT1 = TreeNode(1)
 newBT2 = TreeNode(2)
 newBT3 = TreeNode(3)
@@ -70,10 +106,17 @@ newBT4.left = newBT8
 newBT4.right = newBT9
 newBT10 = TreeNode(10)
 newBT5.left = newBT10
-preOrdered(newBT1)
-print('-------------------------------')
-inOrdered(newBT1)
-print('-------------------------------')
-postOrderd(newBT1)
+
+# checking each traversal function
+# print('--------------Pre-Ordered-----------------')
+# preOrdered(newBT1)
+# print('---------------In-Ordered----------------')
+# inOrdered(newBT1)
+# print('--------------Post-Ordered-----------------')
+# postOrderd(newBT1)
+# print('--------------Level-Ordered-----------------')
+# levelOrder(newBT1)
+
+insert(newBT1, 11)
 print('-------------------------------')
 levelOrder(newBT1)
