@@ -428,3 +428,81 @@ def bestBuySell(prices: List[int]):
             low = i
     return diff
 # ---------------------------------------------------------
+# 704. Binary Search
+
+def search(nums: List[int], target: int) -> int:
+    pointerL = 0
+    pointerR = len(nums)-1
+    while pointerR - pointerL > 1:
+        n = int((pointerR - pointerL)/2)+pointerL
+
+        if nums[n] == target:
+            return n
+
+        if nums[n] > target:
+            pointerR = n-1
+
+        if nums[n] < target:
+            pointerL = n+1
+
+    if nums[pointerL] == target:
+        return pointerL
+    if nums[pointerR] == target:
+        return pointerR
+    return -1
+
+nums = [-1,0,3,5,9,12]
+target = 9
+print(search(nums, target))
+#------------------------------------------------------
+# 104.Maximum depth of Binary Tree
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class SolutionMaxDepth:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root in None:
+            return 0
+
+        max_depth = 1
+        def travers(root : TreeNode, depth ):
+            if not root.left and not root.right:
+                nonlocal max_depth
+                max_depth = max(max_depth, depth)
+                return max_depth
+            if root.left:
+                travers(root.left , depth+1 )
+            if root.right:
+                travers(root.right, depth+1 )
+        travers(root, max_depth)
+        return max_depth
+
+newBT1 = TreeNode(3)
+newBT2 = TreeNode(9)
+newBT3 = TreeNode(20)      #     3     -> 1
+newBT1.left = newBT2    #      /  \
+newBT1.right = newBT3   #     9   20   -> 2
+newBT4 = TreeNode(15)   #        /  \
+newBT5 = TreeNode(7)    #      15    7 -> 3
+newBT3.left = newBT4    # depth = 3
+newBT3.right = newBT5
+depth = SolutionMaxDepth()
+print(depth.maxDepth(newBT1))
+#----------------------------------------------
+# 226. Invert Binary Tree
+def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
+    def travers(rootTree: TreeNode):
+        if rootTree is None:
+            return
+        else:
+            rootTree.left , rootTree.right = rootTree.right , rootTree.left
+            travers(rootTree.left)
+            travers(rootTree.right)
+
+    travers(root)
+    return root
+#------------------------------------------------
