@@ -360,9 +360,8 @@ def missingNumber(nums: List[int]) -> int:
 
 l = [1, 2, 4, 0]
 print(missingNumber(l))
-
-
 # 3
+
 # --------------------------------------------------------------
 # 141.Linked List Cycle
 
@@ -377,7 +376,6 @@ def linkedListCycle(head: Optional[ListNode]):
             head.val = 10e6  # mark the visited node
             head = head.next
     return False
-
 
 # --------------------------------------------------------------
 # 88. Merge Sorted Array
