@@ -506,3 +506,17 @@ def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
     travers(root)
     return root
 #------------------------------------------------
+#100 Same Tree
+# check if two trees are completely the same
+
+def isSameTree(p : Optional[TreeNode], q: Optional[TreeNode]):
+    if p == None and q == None:
+        return True
+    if p!= None and q == None:
+        return False
+    if p == None and q != None:
+        return False
+    if p.val != q.val:
+        return False
+    return isSameTree(p.right, q.right) and isSameTree(p.left, q.left)
+#------------------------------------------------
