@@ -95,4 +95,18 @@ def insert(rootNode: AVLNode, value):
     rootNode.height = 1+ max (getHeight(rootNode.right), getHeight(rootNode.left))
     balance = getBalance(rootNode)
 
-    if balance > 1 and
+    # balance > 1 means: left side and balance < -1 means right side of the tree
+    if balance > 1 and value < rootNode.left.value : # Left-Left  -> right rotation
+        return rightRotation(rootNode)
+
+    if balance > 1 and rootNode.left.value < value : # Left- Right -> left rotation(for leftChild), then right rotation
+        rootNode.left = leftRotation(rootNode.left)
+        return rightRotation(rootNode)
+
+    if balance < -1 and rootNode.right < value : # Right- Right -> left Rotation
+        return leftRotation(rootNode)
+
+    if balance < -1 and value < rootNode.right: # Right - Left -> Right Rotation(rightChild), then left Rotation(root)
+        rootNode.right = rightRotation(rootNode.right)
+        return leftRotation(rootNode)
+    return rootNode
