@@ -37,6 +37,7 @@ def levelOrderTravesral(rootNode : AVLNode):
     customQueue.enqueue(rootNode)
     while not (customQueue.isEmpty()):
         root = customQueue.dequeue().value
+        print(root.value)
         if root.left:
             customQueue.enqueue(root.left)
         if root.right:
@@ -59,23 +60,23 @@ def searchNode(rootNode, value):
 
 def getHeight(rootNode: AVLNode):
     if not rootNode:
-        return
+        return 0
     return rootNode.height
 
 def leftRotation(disbalancedNode : AVLNode) -> AVLNode:
     newRoot = disbalancedNode.right
     disbalancedNode.right = disbalancedNode.right.left
     newRoot.left = disbalancedNode
-    disbalancedNode.height = 1+ max(disbalancedNode.left.height, disbalancedNode.right.height)
-    newRoot.height = 1+ max(newRoot.right.hight, newRoot.left.height)
+    disbalancedNode.height = 1+ max(getHeight(disbalancedNode.left), getHeight(disbalancedNode.right))
+    newRoot.height = 1+ max(getHeight(newRoot.right), getHeight(newRoot.left))
     return newRoot
 
 def rightRotation(disbalancedNode: AVLNode) -> AVLNode :
     newRoot = disbalancedNode.left
     disbalancedNode.left = disbalancedNode.left.right
     newRoot.right = disbalancedNode
-    disbalancedNode.height = 1 + max(disbalancedNode.left.height, disbalancedNode.right.height)
-    newRoot.height = 1 + max(newRoot.right.hight, newRoot.left.height)
+    disbalancedNode.height = 1 + max(getHeight(disbalancedNode.left), getHeight(disbalancedNode.right))
+    newRoot.height = 1 + max(getHeight(newRoot.right), getHeight(newRoot.left))
 
     return newRoot
 
@@ -92,7 +93,7 @@ def insert(rootNode: AVLNode, value):
     else:
         rootNode.right = insert(rootNode.right, value)
 
-    rootNode.height = 1+ max (getHeight(rootNode.right), getHeight(rootNode.left))
+    rootNode.height = 1+ max(getHeight(rootNode.right), getHeight(rootNode.left))
     balance = getBalance(rootNode)
 
     # balance > 1 means: left side and balance < -1 means right side of the tree
@@ -103,10 +104,19 @@ def insert(rootNode: AVLNode, value):
         rootNode.left = leftRotation(rootNode.left)
         return rightRotation(rootNode)
 
-    if balance < -1 and rootNode.right < value : # Right- Right -> left Rotation
+    if balance < -1 and rootNode.right.value < value : # Right- Right -> left Rotation
         return leftRotation(rootNode)
 
-    if balance < -1 and value < rootNode.right: # Right - Left -> Right Rotation(rightChild), then left Rotation(root)
+    if balance < -1 and value < rootNode.right.value: # Right - Left -> Right Rotation(rightChild), then left Rotation(root)
         rootNode.right = rightRotation(rootNode.right)
         return leftRotation(rootNode)
     return rootNode
+
+node1 = AVLNode(5)
+node1 = insert(node1,10)
+node1 = insert(node1,15)
+node1 = insert(node1,20)
+node1 = insert(node1,16)
+levelOrderTravesral(node1)
+print('-------')
+preOrderTraverse(node1)
