@@ -8,27 +8,27 @@ class Graph :
     def addNode(self, fromNode, toNode):
         self.gNodes[fromNode].append(toNode)
 
-    def bfsTraversal(self, startNode):
-        visited = [startNode]
-        queue = [startNode]
+    def bfsTraversal(self, start):
+        visited = [start]
+        queue = [start]
         while queue:
-            visit = queue.pop(0)
-            print(visit)
-            for i in self.gNodes[visit]:
-                if i not in visited:
-                    queue.append(i)
-                    visited.append(i)
+            dequeued = queue.pop(0)
+            print(dequeued)
+            for adjacent in self.gNodes[dequeued]:
+                if adjacent not in visited:
+                    visited.append(adjacent)
+                    queue.append(adjacent)
 
-    def dfsTraversal(self, startNode):
-        visited = [startNode]
-        stack = [startNode]
+    def dfsTraversal(self, start):
+        visited = [start]
+        stack = [start]
         while stack:
-            popedNode = stack.pop()
-            print(popedNode)
-            for i in self.gNodes[popedNode]:
-                if i not in visited:
-                    stack.append(i)
-                    visited.append(i)
+            dequeued = stack.pop()
+            print(dequeued)
+            for adjacent in self.gNodes[dequeued]:
+                if adjacent not in visited:
+                    visited.append(adjacent)
+                    stack.append(adjacent)
 
 
 sampleGraph = {"A": ["B","C"],
