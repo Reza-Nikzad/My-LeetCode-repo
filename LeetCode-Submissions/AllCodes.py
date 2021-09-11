@@ -518,3 +518,16 @@ def isSameTree(p : Optional[TreeNode], q: Optional[TreeNode]):
         return False
     return isSameTree(p.right, q.right) and isSameTree(p.left, q.left)
 #------------------------------------------------
+# 120. Triangle
+triangle = [[-1],[2,3],[1,-1,-3]]
+def minimumTotal( triangle: List[List[int]]) -> int:
+    n = len(triangle)
+    if not triangle:
+        return
+    for i in range(len(triangle)-2, -1, -1):
+        for j in range(len(triangle[i])):
+            triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
+    return triangle[0][0]
+
+print(minimumTotal(triangle))
+#------------------------------------------------
