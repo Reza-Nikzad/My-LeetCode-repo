@@ -457,28 +457,16 @@ print(search(nums, target))
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+            self.val = val
+            self.left = left
+            self.right = right
 
-class SolutionMaxDepth:
+class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if root in None:
+        if not root:
             return 0
 
-        max_depth = 1
-        def travers(root : TreeNode, depth ):
-            if not root.left and not root.right:
-                nonlocal max_depth
-                max_depth = max(max_depth, depth)
-                return max_depth
-            if root.left:
-                travers(root.left , depth+1 )
-            if root.right:
-                travers(root.right, depth+1 )
-        travers(root, max_depth)
-        return max_depth
-
+        return 1+max(self.maxDepth(root.left), self.maxDepth(root.right))
 newBT1 = TreeNode(3)
 newBT2 = TreeNode(9)
 newBT3 = TreeNode(20)      #     3     -> 1
