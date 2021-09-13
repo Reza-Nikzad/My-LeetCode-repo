@@ -431,7 +431,7 @@ def bestBuySell(prices: List[int]):
 def search(nums: List[int], target: int) -> int:
     pointerL = 0
     pointerR = len(nums)-1
-    while pointerR - pointerL > 1:
+    while pointerR - pointerL >= 1:
         n = int((pointerR - pointerL)/2)+pointerL
 
         if nums[n] == target:
@@ -443,8 +443,6 @@ def search(nums: List[int], target: int) -> int:
         if nums[n] < target:
             pointerL = n+1
 
-    if nums[pointerL] == target:
-        return pointerL
     if nums[pointerR] == target:
         return pointerR
     return -1
