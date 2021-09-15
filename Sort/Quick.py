@@ -17,3 +17,7 @@ class Quick:
             index = self.partition(list, low, high)
             self.quickSort(list, low, index-1)
             self.quickSort(list, index+1, high)
+q = Quick()
+mylist= [20,50,10,70,30,40,60,80,90,0]
+q.quickSort(mylist, 0, 9)
+print(mylist)
