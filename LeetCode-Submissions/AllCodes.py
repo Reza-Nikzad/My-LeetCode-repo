@@ -517,3 +517,35 @@ def minimumTotal( triangle: List[List[int]]) -> int:
 
 print(minimumTotal(triangle))
 #------------------------------------------------
+#1143 Longest Common Subsequence
+import bisect
+import collections
+import numpy as np
+# my answer
+def lcs(text1: str, text2: str) -> int:
+    matrix = np.zeros([len(text1)+1, len(text2)+1], dtype = int)
+    for i in range(len(text1)):
+        for j in range(len(text2)):
+            if text1[i] == text2[j]:
+                matrix[i+1,j+1] = matrix[i,j]+1
+            else:
+                matrix[i+1,j+1] = max(matrix[i+1,j], matrix[i,j+1])
+
+    return matrix[-1, -1]
+# best answer
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        dp = []
+        d = collections.defaultdict(list)
+        for i, c in enumerate(text2):
+            d[c].append(i)
+        for c in text1:
+            if c in d:
+                for i in reversed(d[c]):
+                    ins = bisect.bisect_left(dp, i)
+                    if ins == len(dp):
+                        dp.append(i)
+                    else:
+                        dp[ins] = i
+        return len(dp)
+#========================================================================
