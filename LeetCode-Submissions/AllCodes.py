@@ -549,3 +549,124 @@ class Solution:
                         dp[ins] = i
         return len(dp)
 #========================================================================
+# 572.Subtree of another root
+# Definition for a binary tree node.
+# from typing import Optional
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Mysolution:
+    def isSubtree(self, s1:Optional[TreeNode],s2:Optional[TreeNode]) -> bool:
+        string_s1 = self.traverse(s1)
+        string_s2 = self.traverse(s2)
+        if string_s2 in string_s1:
+            return True
+        return False
+
+    def traverse(self, root: Optional[TreeNode]):
+        if root:
+            return f"#{root.val} {self.traverse(root.left)} {self.traverse(root.right)}"
+        return None
+# output
+#3 #4 #1 None None #2 #0 None None None #5 None None
+#4 #1 None None #2 #0 None None None
+True
+
+s1 = TreeNode(3)
+s1.left =TreeNode(4)
+s1.right = TreeNode(5)
+s1.left.left = TreeNode(1)
+s1.left.right= TreeNode(2)
+s1.left.right.left = TreeNode(0)
+
+ss1 = TreeNode(4)
+ss1.left =TreeNode(1)
+ss1.right = TreeNode(2)
+ss1.right.left =TreeNode(0)
+
+print(Mysolution().isSubtree(s1,ss1))
+
+#===============================================================
+#242. Valid Anagram
+from collections import Counter
+
+class ValidAnagram:
+    def isAnagram(self, s: str, t: str) -> bool:
+        x=Counter(s)
+        y=Counter(t)
+        if x==y:
+            return True
+        else:
+            return False
+
+''' 
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Input: s = "rat", t = "car"
+Output: false
+
+Input: s = "a", t = "ab"
+Output: false
+'''
+print(ValidAnagram().isAnagram('car', 'rat'))
+#======================================================
+# 49. Group Anagrams
+class Anagram:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams = {}
+        for word in strs:
+            key = ''.join(sorted(word))
+            if key not in anagrams:
+                anagrams[key] = []
+            anagrams[key].append(word)
+
+        return list(anagrams.values())
+
+print(Solution().groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+# print(Solution().groupAnagrams(["","b",""]))
+# print(Solution().groupAnagrams(["",""]))
+# output = [["eat","tea","ate"],[]]
+#=======================================================
+
+# 977. Squares of a Sorted Array
+
+class SquaresOfArray:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        pL = 0
+        pR = len(nums)-1
+        result = []
+        while pL <= pR:
+            if abs(nums[pL]) > abs(nums[pR]):
+                result.append(nums[pL]**2)
+                pL += 1
+            else:
+                result.append(nums[pR] ** 2)
+                pR -= 1
+        result.reverse()
+        return result
+# Input: nums = [-4,-1,0,3,10]
+# Output: [0,1,9,16,100]
+# Explanation: After squaring, the array becomes [16,1,0,9,100].
+# After sorting, it becomes [0,1,9,16,100].
+nums = [-4,-1,0,3,10]
+print(SquaresOfArray().sortedSquares(nums))
+#==================================================
+# 189. Rotate Array
+# Input : [1,2,3,4,5,6,7] , k =3
+# output : [5,6,7,1,2,3,4]
+
+class RotateArray:
+    def rotate(self, nums: List[int], k: int) -> None:
+        end = len(nums)
+        if end <=1:
+            return
+        if k >= end:
+            k %= end
+        temp = nums[-k::1]
+        nums[k:] = nums[0:-k:1]
+        nums[0:k:1] = temp
+#================================================
