@@ -693,3 +693,18 @@ nums = [[1,2],[2,3],[3,4],[1,3]]
 Scheduling().eraseOverlapIntervals(nums)
 #output = 1
 #======================================================
+# 283. Move Zeroes
+
+class MoveZeroes:
+    def moveZeroes(self, nums: List[int]) -> None:
+        p0 = len(nums)
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                if p0 < i:
+                    nums[i], nums[p0] = nums[p0], nums[i]
+                    p0 += 1
+            elif p0 > i:
+                p0 = i
+# Input: nums = [0,1,0,3,12]
+# Output: [1,3,12,0,0]
+#========================================================
