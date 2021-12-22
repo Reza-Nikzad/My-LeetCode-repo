@@ -670,3 +670,26 @@ class RotateArray:
         nums[k:] = nums[0:-k:1]
         nums[0:k:1] = temp
 #================================================
+# 435. Non-overlapping Intervals
+from typing import List
+from operator import itemgetter
+
+# itemgetter is a sort function with O(nlogn)
+class Scheduling:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        # sort based on finishing time
+        if len(intervals)<=1:
+            return 0
+        intervals = sorted(intervals, key=itemgetter(1))
+        fi = intervals[0][1]
+        cntr = 0
+        for i in range(1, len(intervals)):
+            if intervals[i][0] < fi:
+                cntr += 1
+            else :
+                fi = intervals[i][1]
+        return cntr
+nums = [[1,2],[2,3],[3,4],[1,3]]
+Scheduling().eraseOverlapIntervals(nums)
+#output = 1
+#======================================================
