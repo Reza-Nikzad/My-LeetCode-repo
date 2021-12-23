@@ -708,3 +708,30 @@ class MoveZeroes:
 # Input: nums = [0,1,0,3,12]
 # Output: [1,3,12,0,0]
 #========================================================
+#167. Two sum II - Input Array is Sorted
+class Two_Sum_II:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        i = 0
+        j = len(nums)-1
+        while i<=j:
+            if (nums[i] + nums[j]) == target:
+                return [i+1, j+1]
+            elif (nums[i] + nums[j]) > target:
+                j -= 1
+            else:
+                i+=1
+        return []
+''' 
+First Answer: 
+        dic = {}
+        for i in range(len(nums)): 
+            if nums[i] not in dic:
+                dic[target - nums[i]] = i+1
+            else:
+                return [dic[nums[i]],i+1]
+        return []
+'''
+nums = [3,24,50,79,88,150,345]
+target = 200
+print(Two_Sum_II().twoSum(nums, target))
+#========================================================
