@@ -746,3 +746,36 @@ class ReverseWords:
 s="Let's take LeetCode contest"
 print(ReverseWords().reversStr(s))
 #========================================================
+# 102. Binary Tree Level Order Traversal
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from queue import Queue
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        queue = Queue()
+        queue.put(root)
+        res = []
+
+        while not queue.empty():
+            curr_lvl = []
+            for _ in range(queue.qsize()):
+                node = queue.get()
+                curr_lvl.append(node.val)
+                if node.left:
+                    queue.put(node.left)
+                if node.right:
+                    queue.put(node.right)
+
+            res.append(curr_lvl)
+
+        return res
+print(Solution().levelOrder(TreeNode(1,TreeNode(2, TreeNode(4)),TreeNode(3,TreeNode(5)))))
+# Input:  [1,2,3,4,null,null,5]
+# Output: [[1],[2,3],[4,5]]
+#====================================================================
