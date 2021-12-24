@@ -779,3 +779,42 @@ print(Solution().levelOrder(TreeNode(1,TreeNode(2, TreeNode(4)),TreeNode(3,TreeN
 # Input:  [1,2,3,4,null,null,5]
 # Output: [[1],[2,3],[4,5]]
 #====================================================================
+# 876. Middle of the Linked-list
+from typing import Optional
+from queue import Queue
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class MiddleNode:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # better answer
+        # by add on step at the beginning and two step to the end
+        bgn = head
+        end = head
+        while end and end.next:
+            bgn = bgn.next
+            end = end.next.next
+        return bgn
+
+        ''' My Answer 
+        queue = Queue()
+        i = 0 # i even -> put, i odd-> put and get
+        while head is not None:
+            if i%2 == 0: 
+                queue.put(head)
+            else: 
+                queue.get()
+                queue.put(head)
+            head = head.next
+            i += 1
+        return queue.get()
+        '''
+# Input: head = [1,2,3,4,5,6] -> Output: [4,5,6]
+# Input: head = [1,2,3,4,5] -> Output: [3,5,6]
+l = ListNode(1,ListNode(2, ListNode(3, ListNode(4, ListNode(5,ListNode(6))))))
+result = MiddleNode().middleNode(l)
+print(result.val)
+#==============================================================================
