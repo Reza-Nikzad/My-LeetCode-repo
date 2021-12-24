@@ -818,3 +818,26 @@ l = ListNode(1,ListNode(2, ListNode(3, ListNode(4, ListNode(5,ListNode(6))))))
 result = MiddleNode().middleNode(l)
 print(result.val)
 #==============================================================================
+#206 Reverse Linked-list
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        curr = head
+        prev = None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
+#Input: [1,2,3,4,5] #output = [5,4,3,2,1]
+l = ListNode(1,ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+result = Solution().reverseList(l)
+while result :
+    print(result.val, end=',')
+    result = result.next
+#===================================================================
