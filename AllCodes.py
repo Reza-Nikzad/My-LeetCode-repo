@@ -2,21 +2,18 @@
 # Given a string s, find the length of the longest substring
 # without repeating characters.
 # Input: s = "pwwkew" ; Output: 3
+# Input: s = " " ; Output: 1
 
 def lengthOfLongestSubstring(s: str) -> int:
-    start = maxLength = 0
-    usedChar = {}
-
+    start = res = 0
+    dct = {}
     for i in range(len(s)):
-        if s[i] in usedChar and start <= usedChar[s[i]]:
-            start = usedChar[s[i]] + 1
-        else:
-            maxLength = max(maxLength, i - start + 1)
+        if (s[i] in dct) and dct[s[i]] >= start:
+            res = max(i-start, res)
+            start = dct[s[i]] + 1
+        dct[s[i]] = i
 
-        usedChar[s[i]] = i
-
-    return maxLength
-
+    return max(len(s)-start, res)
 
 # -------------------------------------------------------
 # 11. Container With Most Water
