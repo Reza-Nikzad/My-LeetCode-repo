@@ -867,3 +867,37 @@ while result:
     print(result.val, end=',')
     result = result.next
 #=============================================================================
+# 567. Permutation in String
+from collections import Counter
+
+class StringPermutation:
+    def check(self, s1, p2):
+        return Counter(s1) == Counter(p2)
+
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+        p = len(s1)
+        val1 = val2 = 0
+        for i in range(p):
+            val1 += ord(s1[i])
+
+        for i in range(p-1):
+            val2 += ord(s2[i])
+
+        k = p-1
+        while k < len(s2):
+            val2 += ord(s2[k])
+            if val2 == val1:
+                if self.check():
+                    return True
+            val2 -= ord(s2[k-p+1])
+            k += 1
+
+        return False
+
+Input : s1 = "ab"
+Output = s2 = "eidboaoo" #-> false
+#Output = s2 = "eidbaoo" -> True
+print(StringPermutation().checkInclusion(s1,s2))
+#============================================================
