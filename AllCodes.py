@@ -925,7 +925,7 @@ class MidOfTwoSortedArray:
             right1 = float('inf') if P1 == len(nums1) else nums1[P1]
             right2 = float('inf') if P2 == len(nums2) else nums2[P2]
 
-            if left1 < right2 and right1 > left2 :
+            if left1 <= right2 and right1 >= left2 :
                 if even :
                     return (max(left1, left2) + min(right1, right2))/2
                 else:
