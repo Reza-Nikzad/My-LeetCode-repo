@@ -901,3 +901,40 @@ Output = s2 = "eidboaoo" #-> false
 #Output = s2 = "eidbaoo" -> True
 print(StringPermutation().checkInclusion(s1,s2))
 #============================================================
+# 3. median of two sorted arrays
+# input = [1,2,6] , [2,6,9]
+# Output = 4.0
+class MidOfTwoSortedArray:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+
+        l_total = len(nums1) + len(nums2)
+        start = 0
+        end = len(nums1)
+        even = False
+        if l_total %2 ==0:
+            even = True
+
+        while True:
+            P1 = (start+ end)//2
+            P2 = (l_total +1 )//2 - P1
+
+            left1 = -float('inf') if P1 == 0 else nums1[P1-1]
+            left2 = -float('inf') if P2 == 0 else nums2[P2-1]
+            right1 = float('inf') if P1 == len(nums1) else nums1[P1]
+            right2 = float('inf') if P2 == len(nums2) else nums2[P2]
+
+            if left1 < right2 and right1 > left2 :
+                if even :
+                    return (max(left1, left2) + min(right1, right2))/2
+                else:
+                    return max(left1, left2)
+            elif left1 > right2 :
+                end = P1 - 1
+            elif right1 < left2:
+                start = P1 + 1
+nums1 = [1,2,6]
+nums2 = [2,6,9]
+print(MidOfTwoSortedArray().findMedianSortedArrays(nums1, nums2))
+#==========================================================================
