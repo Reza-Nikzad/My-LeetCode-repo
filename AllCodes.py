@@ -3,6 +3,22 @@
 # without repeating characters.
 # Input: s = "pwwkew" ; Output: 3
 # Input: s = " " ; Output: 1
+def printTree(root):
+    if not root:
+        return []
+    queue = Queue()
+    queue.put(root)
+    print(root.val, end=',')
+    while not queue.empty():
+        temp =queue.get()
+        if temp.left:
+            queue.put(temp.left)
+            print(temp.left.val, end=',')
+        else: print('null', end=',')
+        if temp.right:
+            queue.put(temp.right)
+            print(temp.right.val,end=',')
+        else: print('null',end=',')
 
 def lengthOfLongestSubstring(s: str) -> int:
     start = res = 0
@@ -918,7 +934,7 @@ class MidOfTwoSortedArray:
 
         while True:
             P1 = (start+ end)//2
-            P2 = (l_total +1 )//2 - P1
+            P2 = ((l_total +1 )//2) - P1
 
             left1 = -float('inf') if P1 == 0 else nums1[P1-1]
             left2 = -float('inf') if P2 == 0 else nums2[P2-1]
@@ -938,3 +954,38 @@ nums1 = [1,2,6]
 nums2 = [2,6,9]
 print(MidOfTwoSortedArray().findMedianSortedArrays(nums1, nums2))
 #==========================================================================
+# 617.Merge two binary trees
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# Input: root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
+# Output: [3,4,5,5,4,null,7]
+
+class Solution:
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+
+        if not root1 and not root2:
+            return None
+
+        if not root1 or not root2:
+            return root1 if root1 else root2
+
+        root1.left = self.mergeTrees(root1.left, root2.left)
+        root1.right = self.mergeTrees(root1.right, root2.right)
+        root1.val += root2.val
+
+        return root1
+
+l1 = TreeNode(1, TreeNode(3, TreeNode(5),TreeNode(2)))
+l2 = TreeNode(2, TreeNode(1,left=None ,right=TreeNode(4)), TreeNode(3,left=None, right= TreeNode(7)))
+printTree(l1)
+print('=================')
+printTree(l2)
+print('=================')
+result = Solution().mergeTrees(l1, l2)
+printTree(result)
+#========================================================================
