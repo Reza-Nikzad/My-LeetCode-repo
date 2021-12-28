@@ -989,3 +989,34 @@ print('=================')
 result = Solution().mergeTrees(l1, l2)
 printTree(result)
 #========================================================================
+
+from typing import Optional
+
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+
+class Populating:
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root:
+            return None
+        stack = []
+        stack.append(root)
+
+        while len(stack) > 0:
+            level = len(stack)
+            temp =[]
+            for i in range(level):
+                if stack[i].left :
+                    temp.append(stack[i].left)
+                    temp.append(stack[i].right)
+                if i == level-1:
+                    stack[i].next = None
+                else:
+                    stack[i].next = stack[i+1]
+            stack = temp
+        return root
+#=========================================================================
