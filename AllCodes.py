@@ -1042,3 +1042,60 @@ image , sr , sc, newColor  = [[1,1,1],[1,1,0],[1,0,1]] , 1, 1, 2
 # Output: [[2,2,2],[2,2,0],[2,0,1]]
 print(FloodFill().floodFill(image,sr,sc,newColor))
 #===========================================================================
+# 695. Max Area of Island
+input = [[1,1,1,0,0],
+        [1,1,0,0,0],
+        [0,0,0,0,0],
+        [1,1,0,0,0],
+        [1,0,1,1,1]]
+#Output = 5
+class MaxArea:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        self.count = 0
+        result = 0
+        def travers(a, b):
+            if a < 0 or a >= m or b < 0 or b >= n or grid[a][b] != 1:
+                return
+
+            self.count += 1
+            grid[a][b] = '#'
+            travers(a+1,b)
+            travers(a-1,b)
+            travers(a,b+1)
+            travers(a,b-1)
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    self.count = 0
+                    travers(i,j)
+                    result = max(self.count, result)
+
+        return result
+print(MaxArea().maxAreaOfIsland(input))
+#==============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
