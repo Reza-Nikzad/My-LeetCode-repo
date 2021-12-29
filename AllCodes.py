@@ -989,7 +989,7 @@ print('=================')
 result = Solution().mergeTrees(l1, l2)
 printTree(result)
 #========================================================================
-
+# 116. Populating next right pointers in each node
 from typing import Optional
 
 class Node:
@@ -1020,3 +1020,25 @@ class Populating:
             stack = temp
         return root
 #=========================================================================
+# 733. Flood Fill
+class FloodFill:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        preV = image[sr][sc]
+        checked = [[0 for i in range(len(image[0]))] for j in range(len(image))]
+        m, n = len(image), len(image[0])
+
+        def traverse(i, j):
+            if 0<= i < m and 0<= j < n and image[i][j] == preV and checked[i][j] == 0:
+                checked[i][j] = 1
+                image[i][j] = newColor
+                traverse(i+1,j)
+                traverse(i-1,j)
+                traverse(i,j+1)
+                traverse(i,j-1)
+
+        traverse(sr, sc)
+        return image
+image , sr , sc, newColor  = [[1,1,1],[1,1,0],[1,0,1]] , 1, 1, 2
+# Output: [[2,2,2],[2,2,0],[2,0,1]]
+print(FloodFill().floodFill(image,sr,sc,newColor))
+#===========================================================================
