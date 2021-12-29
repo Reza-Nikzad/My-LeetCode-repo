@@ -1075,8 +1075,40 @@ class MaxArea:
         return result
 print(MaxArea().maxAreaOfIsland(input))
 #==============================================================================
+# 542. 01 Matrix
 
+class Matrix01:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        # one from top to bottom and update by up and left
+        # another from bottom to top and update by down and right
+        m,n = len(mat), len(mat[0])
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] > 0:
+                    top = mat[i-1][j] if i != 0 else m+n+1
+                    left = mat[i][j-1] if j != 0 else m+n+1
+                    mat[i][j] = min(top+1, left+1)
 
+        for i in range(m-1,-1):
+            for j in range(n-1,-1,-1):
+                if mat[i][j] > 0:
+                    down = mat[i+1][j] if i != m else m+n+1
+                    right = mat[i][j+1] if j != n else m+n+1
+                    mat[i][j] = min(mat[i][j], down+1, right+1)
+        return mat
+
+inp = [[0,1,0,1,1],
+       [1,1,0,0,1],
+       [0,0,0,1,0],
+       [1,0,1,1,1],
+       [1,0,0,0,1]]
+print(Solution().updateMatrix(inp))
+# Output[[0, 1, 0, 1, 2],
+#        [1, 1, 0, 0, 1],
+#        [0, 0, 0, 1, 0],
+#        [1, 0, 1, 1, 1],
+#        [1, 0, 0, 0, 1]]
+#================================================================================
 
 
 
