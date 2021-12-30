@@ -1163,6 +1163,56 @@ print( Solution().orangesRotting(grid)) #Output = 4
 #=========================================================
 
 
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        # levels: each lvl: start from i -> n
+        # when we reach last lvl (k) = return answer go upper lvl
+        res = []
+
+        # base condition
+        if k == 0:
+            return res
+
+        if k == n:
+            return [[*range(1, n + 1, 1)]]
+
+        def backtrack(lvlstarts, comb):
+            if len(comb) == k:
+                res.append(comb[:])
+                return
+
+            for i in range(lvlstarts, n + 1):
+                comb.append(i)
+                backtrack(i + 1, comb)
+                comb.pop()
+
+        backtrack(1, [])
+        return res
+#==============================================================
+# 77. Combinations
+class Combinations:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        if k == 0:
+            return res
+        if k == n:
+            result.appen([*range(1,n+1,1)])
+
+        def backtrack(lvlstart, comb):
+            if len(comb) == k :
+                res.append(comb[:])
+                return
+            for i in range(lvlstart, n+1):
+                comb.appen(i)
+                backtrack(i+1,comb)
+                comb.pop(i)
+
+        backtrack(1,[])
+        return res
+# InputInput: n = 4, k = 2
+# Output:[[2,4],[3,4],[2,3],[1,2],[1,3],[1,4]]
+print(Combinations().combine(4, 4))
+#=============================================================
 
 
 
