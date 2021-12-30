@@ -1236,12 +1236,44 @@ class Permutate:
 nums = []
 print(Permutate().permute(nums))
 #=====================================================================
-
+# 784.Letter Case Permutation
+# recursive
 class LetterPermutation:
     def letterCasePermutation(self, s: str) -> List[str]:
+        res = []
 
+        def backtrack(ans: str, index: int):
+            if len(ans) == len(s):
+                res.append(ans)
+                return
 
+            if s[index].isdigit():
+                backtrack(ans+s[index], index+1)
+            else:
+                backtrack(ans+s[index].lower(), index+1)
+                backtrack(ans+s[index].upper(), index+1)
 
+        backtrack('',0)
+        return res
+
+# Iterative
+class LetterCasePermutation:
+    def letterCasePermutation(self, s: str) -> List[str]:
+        stk = list(s)
+        res = ['']
+        while stk :
+            top = stk.pop()
+            if top.isalpha():
+                res = [top.lower()+x for x in res]+[top.upper()+x for x in res]
+            else:
+                res = [top+x for x in res]
+        return res
+
+s = "a1b2"
+print(LetterCasePermutation().letterCasePermutation(s))
+# Output: ["a1b2","a1B2","A1b2","A1B2"]
+print(LetterPermutation().letterCasePermutation(s))
+# =======================================================================
 
 
 
