@@ -1213,9 +1213,32 @@ class Combinations:
 # Output:[[2,4],[3,4],[2,3],[1,2],[1,3],[1,4]]
 print(Combinations().combine(4, 4))
 #=============================================================
+# 46. Permutations
+
+class Permutate:
+    def backtrack(self,avalbl, perm, res):
+        if len(avalbl) == 0:
+            res.append(perm[:])
+            return
+
+        for i in range(len(avalbl)):
+            perm.append(avalbl[i])
+            self.backtrack(avalbl[:i]+avalbl[i+1:], perm,res)
+            perm.pop()
 
 
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.backtrack(nums, [], res)
+        return res
 
+# nums = [1,2,3] # nums = [1,2] # nums = [2]
+nums = []
+print(Permutate().permute(nums))
+#=====================================================================
+
+class LetterPermutation:
+    def letterCasePermutation(self, s: str) -> List[str]:
 
 
 
