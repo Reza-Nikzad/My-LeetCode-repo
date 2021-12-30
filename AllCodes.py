@@ -1109,7 +1109,58 @@ print(Solution().updateMatrix(inp))
 #        [1, 0, 1, 1, 1],
 #        [1, 0, 0, 0, 1]]
 #================================================================================
+# 994.Rotting Oranges
 
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        queue = Queue()
+        self.fresh = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    queue.put((i, j))
+                elif grid[i][j] == 1:
+                    self.fresh += 1
+        time = 0
+        if self.fresh == 0:
+            return 0
+        def getAdjacents(i, j):
+
+            if i <m - 1 and grid[i + 1][j] == 1:
+                grid[i + 1][j] = 2
+                queue.put([i + 1, j])
+                self.fresh -= 1
+
+            if i > 0 and grid[i - 1][j] == 1:
+                grid[i - 1][j] = 2
+                queue.put([i - 1, j])
+                self.fresh -= 1
+
+            if j < n-1 and grid[i][j + 1] == 1:
+                grid[i][j + 1] = 2
+                queue.put([i, j + 1])
+                self.fresh -= 1
+
+            if j > 0 and grid[i][j - 1] == 1:
+                grid[i][j - 1] = 2
+                queue.put([i, j - 1])
+                self.fresh -= 1
+
+        while not queue.empty():
+            p = queue.qsize()
+            for _ in range(p):
+                temp = queue.get()
+                getAdjacents(temp[0], temp[1])
+            time+=1
+
+        if self.fresh > 0:
+            return -1
+        return time-1
+
+grid = [[2,1,1],[1,1,0],[0,1,1]]
+print( Solution().orangesRotting(grid)) #Output = 4
+#=========================================================
 
 
 
