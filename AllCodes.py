@@ -1274,8 +1274,17 @@ print(LetterCasePermutation().letterCasePermutation(s))
 # Output: ["a1b2","a1B2","A1b2","A1B2"]
 print(LetterPermutation().letterCasePermutation(s))
 # =======================================================================
+# 70. Climbing Stairs
 
+class ClimbingStairs:
+    def climbing(self, n: int)-> int:
+        t1 , res = 0, 1
+        for _ in range(n):
+            t1, res = res, res + t1
+        return res
+print(ClimbingStairs().climbing(5)) # output = 8
 
+#=========================================================
 
 
 
