@@ -3,6 +3,9 @@
 # without repeating characters.
 # Input: s = "pwwkew" ; Output: 3
 # Input: s = " " ; Output: 1
+import math
+
+
 def printTree(root):
     if not root:
         return []
@@ -1304,8 +1307,24 @@ class HouseRobber:
 num= [4,1,2,7,5,3,1]
 print(HouseRobber().rob(num))
 #=================================================================
+# 231. Power of Two
+# n == 2^x
+class PowerOfTwo:
+    def isPowerOfTwo(self, n: int) -> bool:
+        # First answer
+        #         while n >= 2:
+        #             if n%2 != 0:
+        #                 return False
+        #             else:
+        #                 n = n/2
+        #         return n == 1
 
-
+        if n <= 0:
+            return False
+        if n == 1:
+            return True
+        return math.log2(n).is_integer()
+#===============================================================
 
 
 
