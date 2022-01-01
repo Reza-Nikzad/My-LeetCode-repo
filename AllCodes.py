@@ -1325,8 +1325,19 @@ class PowerOfTwo:
             return True
         return math.log2(n).is_integer()
 #===============================================================
-
-
-
+# 136.Single Number
+# input = [4,3,2,2,3,4,5]
+# output = 5
+class SingleNumber:
+    def singleNumber(self, nums: List[int]) -> int:
+        # xor 5 ^ 5 = 0
+        # xor 5 ^ 3 = 6
+        # (5^3)^5 = 3
+        xor = 0
+        for i in nums:
+            xor ^= i
+        return xor
+print(SingleNumber().singleNumber([4,3,2,2,3,4,5]))
+#================================================================
 
 
