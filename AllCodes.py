@@ -1339,5 +1339,30 @@ class SingleNumber:
         return xor
 print(SingleNumber().singleNumber([4,3,2,2,3,4,5]))
 #================================================================
+# 5. Longest Palindrom Substring
+class LongestPalindromSubString():
+    def longestPalindrome(self, s: str) -> str:
+        res = s[0]
+
+        for i in range(len(s)-1):
+            pr = i + 1
+
+            while pr < len(s) and s[i] == s[pr]:
+                pr += 1
+            pl= i-1
+            res = res if len(s) > pr-i else s[i:pr+1]
+            while pl >= 0 and pr < len(s):
+                if s[pl] == s[pr]:
+                    res = s[pl:pr+1] if len(s) < (pr-pl+1) else res
+                    pl -= 1
+                    pr += 1
+                else:
+                    break
+            return res
+s = "babad"
+# Output: "bab""
+print(LongestPalindromSubString().longestPalindrome(s))
+#=====================================================================
+
 
 
