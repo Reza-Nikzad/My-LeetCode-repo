@@ -3,6 +3,7 @@
 # without repeating characters.
 # Input: s = "pwwkew" ; Output: 3
 # Input: s = " " ; Output: 1
+import heapq
 import math
 
 
@@ -475,7 +476,7 @@ class TreeNode:
             self.left = left
             self.right = right
 
-class Solution:
+class SolutionMaxDepth:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
@@ -1382,5 +1383,33 @@ class ValidParentheses:
 s = "()[]{}" # -> True
 print(ValidParentheses().isValid(s))
 #========================================================================
+# 23.Merge k Sorted list
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
+class MergeKList:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        tail = head = ListNode()
+        min_heap = [(node.val, index) for index, node in enumerate(lists) if node]
+        heapq.heapify(min_heap)
+
+        while min_heap:
+            _, min_index = heapq.heappop(min_heap)
+            tail.next = lists[min_index]
+            tail = tail.next
+            lists[min_index] = lists[min_index].next
+
+            if lists[min_index]:
+                heapq.heappush(min_heap, (lists[min_index].val, min_index))
+
+list1 = ListNode(1, ListNode(4, ListNode(5)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+list3 = ListNode(2, ListNode(6))
+head = MergeKList().mergeKLists([list1, list2, list3])
+while head:
+    print(head.val, end='->')
+    head = head.next
+#==============================================================================
