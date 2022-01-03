@@ -1363,6 +1363,24 @@ s = "babad"
 # Output: "bab""
 print(LongestPalindromSubString().longestPalindrome(s))
 #=====================================================================
+# 20. valid Parentheses
 
+class ValidParentheses:
+    def isValid(self, s: str) -> bool:
+        o_c = {'(': ')', '[': ']', '{': '}'}
+
+        stack = []
+        for i in s:
+            if i in o_c.keys():
+                stack.append(i)
+            else:
+                if len(stack) == 0 or o_c[i] != stack.pop():
+                    return False
+
+        return len(stack) == 0
+
+s = "()[]{}" # -> True
+print(ValidParentheses().isValid(s))
+#========================================================================
 
 
