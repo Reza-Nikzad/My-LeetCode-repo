@@ -1440,5 +1440,26 @@ nums = [4,5,6,7,0,1,2] # [4,5,6,7,0,1,2] # [1]
 target = 0 # 3 -> -1 # 0 -> -1
 print(RotatedSortedSearch().search(nums,target))
 #=================================================================
+# 39. Combination Sum
+class CombinationSum:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
 
+        def backT(comb, start, sUm):
+            if sUm == target:
+                res.append(comb[:])
+                return
+            elif sUm > target:
+                return
+            for i in range(start, len(candidates)):
+                comb.append(i)
+                backT(comb, i, sum(comb))
+                comb.pop()
 
+        backT([], 0, 0)
+        return res
+
+candidates = [2,3,5]
+target =     8 #-> Output = [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
+print(CombinationSum().combinationSum(candidates, target))
+#=====================================================================
