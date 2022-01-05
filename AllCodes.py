@@ -1469,7 +1469,7 @@ class MergeIntervals:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         if not intervals:
             return []
-        intervals.sort(key= lambda x = x[0])
+        intervals.sort(key= lambda x : x[0])
         res = []
 
         for interval in intervals:
