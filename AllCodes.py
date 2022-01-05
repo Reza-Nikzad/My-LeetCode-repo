@@ -1561,3 +1561,45 @@ n = 7
 # Output: 28
 print(UniquePath().uniquePaths(m,n))
 #========================================================================================
+# 73. Set Matrix Zeroes
+class SetMatrixZeros:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        m,n = len(matrix), len(matrix[0])
+        rows = set()
+        cols = set()
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    rows.add(i)
+                    cols.add(j)
+
+        for i in rows:
+            matrix[i][:] = n*[0]
+
+        for j in cols:
+            for i in range(m):
+                matrix[i][j] == 0
+
+mat =[[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+SetMatrixZeros().setZeroes(mat)
+print(mat) # Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+#=================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
