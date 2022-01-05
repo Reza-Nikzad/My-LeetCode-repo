@@ -1508,6 +1508,21 @@ class InsertInterval:
 
         return res
 
+    def insert2(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res , n = [] , newInterval
+        for index, i in enumerate(intervals):
+            if i[1] < n[0]:
+                res.append(i)
+            elif n[1] < i[0]:
+                res.append(n)
+                return res + intervals[index:]
+            else:
+                n[0] = min(n[0], i[0])
+                n[1] = max(n[1],i[1])
+        res.append(n)
+
+        return res
+
 intervals =[[1,2],[3,5],[6,7],[8,10],[12,16]]   # [[1,5]]   #[[1,5]]  #[[1,3],[6,9]] #
 new =      [4,8]                                # [6,8]     #[2,7]    #[2,5]         #
 print(InsertInterval().insert(intervals,new))
