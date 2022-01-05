@@ -1463,3 +1463,24 @@ candidates = [2,3,5]
 target =     8 #-> Output = [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
 print(CombinationSum().combinationSum(candidates, target))
 #=====================================================================
+# 56. Merge Intervals
+
+class MergeIntervals:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if not intervals:
+            return []
+        intervals.sort(key= lambda x = x[0])
+        res = []
+
+        for interval in intervals:
+            if res == []:
+                res.append(interval)
+            elif res[-1][1] >= interval[0]:
+                res[-1][1] = max(res[-1][1], interval[1])
+            else:
+                res.append(interval)
+        return res
+# intervals = [[1,3],[8,10],[2,6],[15,18]]
+intervals = [[1,4],[1,5]]
+print(MergeIntervals().merge(intervals))
+#============================================================================
