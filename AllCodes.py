@@ -1527,3 +1527,37 @@ intervals =[[1,2],[3,5],[6,7],[8,10],[12,16]]   # [[1,5]]   #[[1,5]]  #[[1,3],[6
 new =      [4,8]                                # [6,8]     #[2,7]    #[2,5]         #
 print(InsertInterval().insert(intervals,new))
 #=========================================================================================
+# 62. Unique Paths
+from math import factorial
+class UniquePath:
+    def uniquePathsBT(self, m: int, n: int) -> int:
+        self.count = 0
+        def back(m,n):
+            if m==1 and n==1:
+                self.count += 1
+                return
+            elif m==1:
+                back(m,n-1)
+            elif n==1:
+                back(m-1,n)
+            else :
+                back(m-1,n)
+                back(m,n-1)
+        back(m,n)
+        return self.count
+
+    def uniquePathDP(self, m, n):
+        dp = [[1 for i in range(n)] for i in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
+        return dp[-1][-1]
+
+    def uniquePathFactorial(self, m, n):
+        return factorial(m + n - 2) / factorial(m - 1) / factorial(n - 1)
+
+m = 3
+n = 7
+# Output: 28
+print(UniquePath().uniquePaths(m,n))
+#========================================================================================
