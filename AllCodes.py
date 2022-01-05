@@ -1484,3 +1484,31 @@ class MergeIntervals:
 intervals = [[1,4],[1,5]]
 print(MergeIntervals().merge(intervals))
 #============================================================================
+# 57. Insert Interval
+
+class InsertInterval:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        res = []
+        for i in range(len(intervals)):
+            if intervals[i][0] >= newInterval[0]:
+                intervals.insert(i, newInterval)
+                break
+            elif i == len(intervals)-1:
+                intervals.append(newInterval)
+
+        for i in intervals:
+            if res == []:
+                res.append(i)
+            elif res[-1][1] >= i[0]:
+                res[-1][1] = max(res[-1][1],i[1])
+            else:
+                res.append(i)
+
+        return res
+
+intervals =[[1,2],[3,5],[6,7],[8,10],[12,16]]   # [[1,5]]   #[[1,5]]  #[[1,3],[6,9]] #
+new =      [4,8]                                # [6,8]     #[2,7]    #[2,5]         #
+print(InsertInterval().insert(intervals,new))
+#=========================================================================================
