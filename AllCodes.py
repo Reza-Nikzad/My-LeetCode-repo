@@ -1584,9 +1584,33 @@ mat =[[0,1,2,0],[3,4,5,2],[1,3,1,5]]
 SetMatrixZeros().setZeroes(mat)
 print(mat) # Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 #=================================================================================
+# 98. Validate Binary Search Tree
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
+class ValidateBST:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        res = []
+        def inOrderTraverse(root, res):
+            if not root:
+                return
+            inOrderTraverse(root.left, res)
+            res.append(root.val)
+            inOrderTraverse(root.right, res)
 
+        inOrderTraverse(root, res)
+        for i in range(len(res)-1):
+            if res[i] >= res[i+1]:
+                return False
 
+        return True
+root = TreeNode(5,TreeNode(1),TreeNode(4, TreeNode(3),TreeNode(6)))
+s= ValidateBST().isValidBST(root)
+print(s)
+#==================================================================
 
 
 
