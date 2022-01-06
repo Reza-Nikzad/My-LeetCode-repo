@@ -1611,8 +1611,59 @@ root = TreeNode(5,TreeNode(1),TreeNode(4, TreeNode(3),TreeNode(6)))
 s= ValidateBST().isValidBST(root)
 print(s)
 #==================================================================
+# 79. Minimum Window Substring
 
+class MinWindowSubString:
+    def minWindow(self, s: str, t: str) -> str:
+        ls = len(s)
+        lt = len(t)
+        if not s or not t or ls < lt:
+            return ''
 
+        left , right = 0, ls
+        minLength = ls
+        found = False
+        dct = {}
+        count = 0 # number of unique car
+        for k in dct:
+            if k in dct:
+                dct[k] +=1
+            else:
+                dct[k] = 1
+                count += 1
+
+        i, j = 0, 0
+
+        while j < ls:
+
+            if s[j] in dct:
+                dct[s[j]] -= 1
+                if dct[s[j]] == 0:
+                    count -= 1
+            j+=1
+            if count > 0 :
+                continue
+
+            while count == 0:
+                if s[i] in dct:
+                    dct[s[i]] += 1
+                    if dct[s[i]] == 1:
+                        count += 1
+                i += 1
+
+            if j-i < minLength:
+                left = i-1
+                right = j-1
+                minLength = j-i
+
+                found = True
+
+        return s[left:right+1] if found else ''
+
+s = "adobecodebanc"
+t = "abc"
+print("answer= "+ MinWindowSubString().minWindow(s,t))
+#================================================================================
 
 
 
