@@ -1611,7 +1611,7 @@ root = TreeNode(5,TreeNode(1),TreeNode(4, TreeNode(3),TreeNode(6)))
 s= ValidateBST().isValidBST(root)
 print(s)
 #==================================================================
-# 79. Minimum Window Substring
+# 76. Minimum Window Substring
 
 class MinWindowSubString:
     def minWindow(self, s: str, t: str) -> str:
@@ -1664,6 +1664,44 @@ s = "adobecodebanc"
 t = "abc"
 print("answer= "+ MinWindowSubString().minWindow(s,t))
 #================================================================================
+# 79. Word Search
+
+class WordSearch:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        m,n = len(board), len(board[0])
+        w = len(word)
+        def dfs(k, ii, jj):
+            # check the answer
+            if k == w:
+                return True
+
+            if (ii < 0 or ii >= m or jj < 0 or jj >= n or
+                board[ii][jj] == ' ' or board[ii][jj] != word[k]):
+                return False
+
+            temp = board[ii][jj]
+            board[ii][jj] = ' '
+
+            ans = dfs(k+1,ii+1,jj) or dfs(k+1,ii-1,jj) or \
+                  dfs(k+1,ii,jj+1) or dfs(k+1,ii,jj-1)
+
+            board[ii][jj] = temp
+
+            return ans
+
+        for i in range (m):
+            for j in range(n):
+                if board[i][j] == word[0] and dfs(0, i, j):
+                    return True
+        return False
+
+board =[["C","A","A"],["A","A","A"],["B","C","D"]]
+word = "AAB"
+print(WordSearch().exist(board, word))
+# ======================================================================
+
+
+
 
 
 
