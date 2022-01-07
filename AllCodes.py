@@ -1723,10 +1723,46 @@ s = "1131"
 # Output: 3
 print(DecodeWays().numDecodings(s))
 #====================================================================
+# 105 Construct Binary Tree from Preorder and Inorder Traversal
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
+class BuildTree105:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        if not preorder or not inorder:
+            return None
 
+        root = TreeNode(preorder[0])
+        mid = inorder.index(preorder[0])
+        root.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
+        root.right = self.buildTree(preorder[mid+1:], inorder[mid+1:])
 
+        return root
 
+preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+s= BuildTree105().buildTree(preorder, inorder)
+def printTree(root):
+    if not root:
+        return []
+    queue = Queue()
+    queue.put(s)
+    res = []
+    while not queue.empty():
+        curr= queue.qsize()
+        for i in range(curr):
+            node = queue.get()
+            res.append(node.val)
+            if node.left:
+                queue.put(node.left)
+            if node.right:
+                queue.put(node.right)
+    return res
+print (printTree(s))
+# ===============================================================
 
 
 
