@@ -1699,9 +1699,30 @@ board =[["C","A","A"],["A","A","A"],["B","C","D"]]
 word = "AAB"
 print(WordSearch().exist(board, word))
 # ======================================================================
+# 91. Decode Ways
+# dynamic Programming
+# can be writen in recursive and Bcaktracking but
+# time consuming
+class DecodeWays:
+    def numDecodings(self, s: str) -> int:
+        size = len(s)
+        if size < 1 or s[0] == '0':
+            return 0
+        dp = [0]*(size+1)
+        dp[0], dp[1] = 1,1
 
+        for i in range(1,size):
+            if s[i] !='0':
+                dp[i+1] += dp[i]
+            if s[i-1] == '1' or (s[i-1] == '2' and s[i] in '0123456'):
+                dp[i+1] += dp[i-1]
 
+        return dp[-1]
 
+s = "1131"
+# Output: 3
+print(DecodeWays().numDecodings(s))
+#====================================================================
 
 
 
