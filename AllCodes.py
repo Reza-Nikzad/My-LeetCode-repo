@@ -1763,6 +1763,16 @@ def printTree(root):
     return res
 print (printTree(s))
 # ===============================================================
+#125. Valid Palindrom
+class ValidPalindrom:
+    def isPalindrom(self, s:str)-> bool:
+        s = [i.lower() for i in s if i.isalnum()]
+        return s == s[::-1]
+s = "A man, a plan, a canal: Panama" # ".," -> True # "0p0" -> True
+# "0P" -> false
+#Output: true
+#==================================================================
+
 
 
 
