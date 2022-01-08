@@ -1793,8 +1793,26 @@ class TreeMaxPath:
 root = TreeNode(-10,TreeNode(9),TreeNode(20, TreeNode(15),TreeNode(7)))
 print(TreeMaxPath().maxPathSum(root))
 #=======================================================================
+# 128. Longest Consecutive Sequence
 
+class LongestConsSequence:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums = set(nums)
+        maxLen = 0
+        temp = 0
 
+        for i in nums:
+            if i-1 in nums:
+                temp=1
+                while i+1 in nums:
+                    temp+=1
+                    i+=1
+            maxLen = max(maxLen, temp)
+        return maxLen
+# Inputs: [100,4,200,1,3,2]->4 # [0,3,7,2,5,8,4,6,0,1]->9# [0]->1
+nums = [100,4,200,1,3,2]
+print(LongestConsSequence().longestConsecutive(nums))
+# ========================================================================
 
 
 
