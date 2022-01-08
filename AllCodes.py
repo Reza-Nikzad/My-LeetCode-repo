@@ -1772,9 +1772,27 @@ s = "A man, a plan, a canal: Panama" # ".," -> True # "0p0" -> True
 # "0P" -> false
 #Output: true
 #==================================================================
+# 124. Binary Tree Maximum Path Sum
+class TreeMaxPath:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        self.res = root.val
 
+        def subtree(root):
+            if not root:
+                return 0
 
+            left = max(0, subtree(root.left))
+            right = max(0, subtree(root.right))
 
+            self.res = max(self.res, left+root.val+right)
+            return max(left, right)+root.val
+
+        subtree(root)
+        return self.res
+# input =   [-10,9,20,null,null,15,7]
+root = TreeNode(-10,TreeNode(9),TreeNode(20, TreeNode(15),TreeNode(7)))
+print(TreeMaxPath().maxPathSum(root))
+#=======================================================================
 
 
 
