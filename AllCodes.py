@@ -1813,7 +1813,50 @@ class LongestConsSequence:
 nums = [100,4,200,1,3,2]
 print(LongestConsSequence().longestConsecutive(nums))
 # ========================================================================
+# 133. Clone Graph
 
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+class CloneGraph:
+    def cloneGraphBFS(self, node: 'Node') -> 'Node':
+        if not node :return node
+        q = collections.deque()
+        #store the order of adding neighbors(all nodes)
+        q.append(node)
+        newNodes = {node:Node(node.val)} # nodes which are cloned
+        while len(q)> 0:
+            oldN = q.popleft()
+            for neighbor in oldN.neighbors:
+                if neighbor not in newNodes:
+                    newNodes[neighbor] = Node(neighbor.val)
+                    q.append(neighbor)
+                # add to cloned node neighbors
+                newNodes[oldN].neighbors.append(newNodes[neighbor])
+
+        return newNodes[node]
+
+
+    def cloneGraphDFS(self,node: 'Node') -> 'Node':
+        visited = {}
+        def dfsClone(top):
+            if not top:
+                return None
+
+            if top in visited:
+                return visited[top]
+
+            cloned = Node(top.val)
+            visited[top] = cloned
+
+            for neighbor in top.neighbors:
+                if neighbor:
+                    cloned.neighbors.append(dfsClone(neighbor))
+            return cloned
+
+        return dfsClone(node)
+#=================================================================================
 
 
 
